@@ -4,13 +4,13 @@
     <link rel="stylesheet" href="button.css">
   </head>
   <body>
-    <button id="changeColor">Calculate ROI</button>
-    <div id="roi"> ...ROI... </div>
-    <p>Asking price: $<span id="askingPrice"></span> </p>
-    <p>+ "\nHOA: $" + hoaCost + </p>
-    <p>"\nProperty Taxes: $" + propertyTaxes + </p>
-    <p>"\nRent Zestimate: $" + rentZestimate +</p>
-    <p> "\nCalculated ROI: " + years.toFixed(2) + " years."</p>
+    <button id="calculateButton">Calculate ROI</button>
+    <div id="roi" class="roi"> ...ROI... </div>
+    <p class="askingPrice">Asking price: $</p>
+    <p class="hoaCost">HOA: $</p>
+    <p class="propertyTaxes">Property Taxes: $</p>
+    <p class="rentZestimate">Rent Zestimate: $</p>
+    <p class="years"> Calculated ROI: </p>
     <script src="popup.js"></script>
   </body>
 </html>

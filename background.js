@@ -1,18 +1,36 @@
 try{
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-
-    if (changeInfo.title.includes("MLS #")) {
-
-        console.log("----------------------URL IS------------------" + changeInfo.url);
-        console.log("----------------------TITLE IS------------------" + changeInfo.title);
-        chrome.scripting.executeScript({
-          files: ['zillow.js'],
-          target: {tabId: tab.id}
-        });
+    if (changeInfo.title){
+      if (changeInfo.title.includes("MLS #")) {
+          chrome.scripting.executeScript({
+            files: ['zillow.js'],
+            target: {tabId: tab.id}
+          });
       }
-    
+    }
   });
 
 }catch(e){
   console.log(e);
-}
+};
+
+chrome.runtime.onMessage.addListener((msg, sender, response) => {
+  console.log("the mgs background.js got: ", msg);
+  console.log("msg.command: ", msg.command);
+  console.log("msg.data: ", msg.data);
+  console.log("msg.data.domain: ", msg.data.domain);
+  if(msg == "calculateROI"){
+    console.log("calculateROI button clicked, popup.js sent the info to background js.");
+    const sure = document.querySelector(id).innerText
+    sure = "!!!!!!!!!!!!!!!!"
+    response({text: "this is the response"});
+  }
+  if(msg.name == "fetch"){
+    alert("message received");
+    const sure = document.querySelector(id).innerText
+    sure = "!!!!!!!!!!!!!!!!"
+    response({text: "this is the response"});
+  }
+});
+
+

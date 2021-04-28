@@ -1,24 +1,50 @@
-console.log("heaheahh");
+chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+  var activeTab = tabs[0];
+  chrome.tabs.sendMessage(activeTab.id, {command: "openModal"});
+});
 
-// Initialize button with user's preferred color let changeColor = document.getElementById("changeColor");
 
-let roi = document.getElementById("roi");
-roi.innerText = document.documentElement.innerText;
+// chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+//   var activeTab = tabs[0];
+//   domain = activeTab.url.replace('http://', '').replace('https://', '').replace('www.','').split(/[/?#]/)[0];
+//   console.log(domain);
+//   chrome.runtime.sendMessage({command: "advanced", data: {domain: domain}}, (response) => {
+//     console.log("advanced Message Sent");
+//   });
+// });
+
+
+// Initialize button with user's preferred color let calculateButton = document.getElementById("calculateButton");
+
+// let roi = document.getElementById("roi");
+// roi.innerText = document.documentElement.innerText;
 
 
 chrome.storage.sync.get("color", ({ color }) => {
-  changeColor.style.backgroundColor = color;
+  calculateButton.style.backgroundColor = color;
 });
 
 
 // action.onClicked.addListener(listener: function) 
-
-
-
-// When the button is clicked, inject setPageBackgroundColor into current page
-changeColor.addEventListener("click", async () => {
+const openBit = async () => {
+  chrome.runtime.sendMessage("calculateROI");
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      function: calculateROI,
+    });
+  };
+
+  openBit();
+
+
+
+
+
+// When the button is clicked, 
+calculateButton.addEventListener("click", async () => {
+  chrome.runtime.sendMessage("calculateROI");
+    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
       function: calculateROI,
@@ -67,9 +93,33 @@ function calculateROI() {
     var years = askingPrice / ((rentZestimate - hoaCost - propertyTaxes) * 12);
     
     if(rentZestimate > 0) {
-    alert("Asking price: $" + askingPrice + "\nHOA: $" + hoaCost + "\nProperty Taxes: $" + propertyTaxes + "\nRent Zestimate: $" + rentZestimate + "\nCalculated ROI: " + years.toFixed(2) + " years.");
+      chrome.runtime.sendMessage({name: "calculations", data: {years: years, rentZestimate: rentZestimate, propertyTaxes: propertyTaxes, hoaCost: hoaCost, askingPrice: askingPrice}}, (response) => {
+        console.log("calculations sent");
+        // parseCoupons(response.data, domain);
+      });
+    // alert("Asking price: $" + askingPrice + "\nHOA: $" + hoaCost + "\nProperty Taxes: $" + propertyTaxes + "\nRent Zestimate: $" + rentZestimate + "\nCalculated ROI: " + years.toFixed(2) + " years.");
     } else {
     alert("Data required for ROI calculations is missing on this page. \nWe're currently working on next version which will allow you to manually enter values. \nStay tuned.");
     };    
 };
 
+chrome.runtime.onMessage.addListener((msg, sender, response) => {
+  console.log("the mgs popus.js got: ", msg);
+  document.querySelector(".years").outerText = "Calculated return in: " + msg.data.years.toFixed(2) + " years";
+  document.querySelector(".askingPrice").append(msg.data.askingPrice);
+  document.querySelector(".rentZestimate").append(msg.data.rentZestimate);
+  document.querySelector(".propertyTaxes").append(msg.data.propertyTaxes);
+  document.querySelector(".hoaCost").append(msg.data.hoaCost);
+  if(msg == "fromZillow"){
+    console.log("coming from Zillow.");
+    const sure = document.querySelector(id).innerText
+    sure = "!!!!!!!!!!!!!!!!"
+    response({text: "this is the response"});
+  }
+  if(msg.name == "fetch"){
+    alert("message received");
+    const sure = document.querySelector(id).innerText
+    sure = "!!!!!!!!!!!!!!!!"
+    response({text: "this is the response"});
+  }
+});
