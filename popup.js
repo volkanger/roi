@@ -35,7 +35,87 @@ const openBit = async () => {
     });
   };
 
-  openBit();
+openBit();
+
+
+// When the Asking Price Edit is clicked, 
+askingPriceEdit.addEventListener("click", async () => {
+  document.querySelector(".askingPriceText").style.display = "none";
+  document.querySelector("#askingPriceField").style.display = "block";
+  document.querySelector("#askingPriceField").focus();
+
+  const field = document.getElementById('askingPriceField');
+
+  field.addEventListener('focusin', (event) => {
+    event.target.style.background = 'pink';
+  });
+  
+  field.addEventListener('focusout', (event) => {
+    document.querySelector(".askingPriceText").style.display = "block";
+    document.querySelector("#askingPriceField").style.display = "none";
+    document.querySelector(".askingPriceText").innerText = formatter.format(document.querySelector("#askingPriceField").value);
+  });    
+  });
+
+  // When the HoaCost Price Edit is clicked, 
+hoaCostEdit.addEventListener("click", async () => {
+  document.querySelector(".hoaCostText").style.display = "none";
+  document.querySelector("#hoaCostField").style.display = "block";
+  document.querySelector("#hoaCostField").focus();
+
+  const hoafield = document.getElementById('hoaCostField');
+
+  hoafield.addEventListener('focusin', (event) => {
+    event.target.style.background = 'pink';
+  });
+  
+  hoafield.addEventListener('focusout', (event) => {
+    document.querySelector(".hoaCostText").style.display = "block";
+    document.querySelector("#hoaCostField").style.display = "none";
+    document.querySelector(".hoaCostText").innerText = formatter.format(document.querySelector("#hoaCostField").value);
+  });
+  });
+
+    // When the propertyTaxes Price Edit is clicked, 
+propertyTaxesEdit.addEventListener("click", async () => {
+  document.querySelector(".propertyTaxesText").style.display = "none";
+  document.querySelector("#propertyTaxesField").style.display = "block";
+  document.querySelector("#propertyTaxesField").focus();
+
+  const field = document.getElementById('propertyTaxesField');
+
+  field.addEventListener('focusin', (event) => {
+    event.target.style.background = 'pink';
+  });
+  
+  field.addEventListener('focusout', (event) => {
+    document.querySelector(".propertyTaxesText").style.display = "block";
+    document.querySelector("#propertyTaxesField").style.display = "none";
+    document.querySelector(".propertyTaxesText").innerText = formatter.format(document.querySelector("#propertyTaxesField").value);
+  });
+
+  });
+
+  // When the rentZestimate Price Edit is clicked, 
+  rentZestimateEdit.addEventListener("click", async () => {
+    document.querySelector(".rentZestimateText").style.display = "none";
+    document.querySelector("#rentZestimateField").style.display = "block";
+    document.querySelector("#rentZestimateField").focus();
+  
+    const field = document.getElementById('rentZestimateField');
+  
+    field.addEventListener('focusin', (event) => {
+      event.target.style.background = 'pink';
+    });
+    
+    field.addEventListener('focusout', (event) => {
+      document.querySelector(".rentZestimateText").style.display = "block";
+      document.querySelector("#rentZestimateField").style.display = "none";
+      document.querySelector(".rentZestimateText").innerText = formatter.format(document.querySelector("#rentZestimateField").value);
+    });
+    });
+
+
 
 
 
@@ -43,14 +123,34 @@ const openBit = async () => {
 
 // When the button is clicked, 
 calculateButton.addEventListener("click", async () => {
-  chrome.runtime.sendMessage("calculateROI");
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      function: calculateROI,
-    });
+  updateROI();
+  // chrome.runtime.sendMessage("updateROI");
+  //   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  //   chrome.scripting.executeScript({
+  //     target: { tabId: tab.id },
+  //     function: updateROI,
+  //   });
+    
   });
+
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2
+});
   
+// formatter.format(1000)
+
+function updateROI() {
+  askingPrice = document.querySelector(".askingPrice").value;
+  rentZestimate = document.querySelector(".rentZestimate").value;
+  propertyTaxes = document.querySelector(".propertyTaxes").value;
+  hoaCost = document.querySelector(".hoaCost").value;
+  years = askingPrice / ((rentZestimate - hoaCost - propertyTaxes) * 12);
+  document.querySelector(".years").innerText = "Calculated return in: " + years.toFixed(2) + " years";
+};
+
+
   // The body of this function will be executed as a content script inside the
   // current page
   
@@ -105,11 +205,15 @@ function calculateROI() {
 
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
   console.log("the mgs popus.js got: ", msg);
-  document.querySelector(".years").outerText = "Calculated return in: " + msg.data.years.toFixed(2) + " years";
-  document.querySelector(".askingPrice").append(msg.data.askingPrice);
-  document.querySelector(".rentZestimate").append(msg.data.rentZestimate);
-  document.querySelector(".propertyTaxes").append(msg.data.propertyTaxes);
-  document.querySelector(".hoaCost").append(msg.data.hoaCost);
+  document.querySelector(".years").innerText = "Calculated return in: " + msg.data.years.toFixed(2) + " years";
+  document.querySelector(".askingPrice").value = msg.data.askingPrice;
+  document.querySelector(".rentZestimate").value = msg.data.rentZestimate;
+  document.querySelector(".propertyTaxes").value = msg.data.propertyTaxes;
+  document.querySelector(".hoaCost").value = msg.data.hoaCost;
+  document.querySelector(".askingPriceText").innerText = formatter.format(msg.data.askingPrice);
+  document.querySelector(".rentZestimateText").innerText = formatter.format(msg.data.rentZestimate);
+  document.querySelector(".propertyTaxesText").innerText = formatter.format(msg.data.propertyTaxes);
+  document.querySelector(".hoaCostText").innerText = formatter.format(msg.data.hoaCost);
   if(msg == "fromZillow"){
     console.log("coming from Zillow.");
     const sure = document.querySelector(id).innerText

@@ -1,0 +1,84 @@
+.float-left {
+  display: none;
+  float: left;
+}
+
+.show {
+  float: left;
+}
+
+.askingPriceText {
+  float: left;
+}
+
+img {
+  height: 15px;
+  width: 15px;
+  margin-left: 10px;
+}
+.containAll {
+
+  margin: 20px;
+}
+
+.title {
+  margin-left: 54px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.form {
+  margin: auto;
+  width: 100%;
+}
+
+.name {
+  margin-left: 144px;
+  margin-bottom: 4px;
+  
+}
+
+.field {
+  margin-bottom: 10px;
+}
+
+.show {
+  margin-left: 124px;
+}
+input {
+  width: 50%;
+  padding: 5px 10px;
+  margin-left: 104px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+input:focus {
+  background-color: powderblue;
+}
+
+.years {
+  margin-top: 40px;
+  margin-left:60px;
+  font-size: 20px;
+}
+
+button {
+    height: 50px;
+    width: 90px;
+    outline: none;
+    margin-left: 340px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 2px;
+  }
+  
+  button.current {
+    box-shadow: 0 0 0 2px white,
+                0 0 0 4px black;
+  }
+  
+  body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    width: 444px;
+    font-size: 18px;
+  }

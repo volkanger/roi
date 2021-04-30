@@ -1,7 +1,7 @@
 {
-    "name": "ROI Calculator for Zillow",
+    "name": "RofI - Return of Investment Calculator for Real Estate",
     "description": "Calculates how many years it'll take for the property to pay off.",
-    "version": "0.0.0.2",
+    "version": "0.0.0.3",
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
