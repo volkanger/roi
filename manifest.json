@@ -1,7 +1,7 @@
 {
-    "name": "RofI - Return of Investment Calculator for Real Estate",
+    "name": "RoI Calculator for Real Estate",
     "description": "Calculates how many years it'll take for the property to pay off.",
-    "version": "0.0.0.3",
+    "version": "0.0.2",
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
@@ -18,17 +18,17 @@
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
-            "16": "/images/get_started16.png",
-            "32": "/images/get_started32.png",
-            "48": "/images/get_started48.png",
-            "128": "/images/get_started128.png"
+            "16": "/images/rofi16.png",
+            "32": "/images/rofi32.png",
+            "48": "/images/rofi48.png",
+            "128": "/images/rofi128.png"
         }
     },
     "icons": {
-        "16": "/images/get_started16.png",
-        "32": "/images/get_started32.png",
-        "48": "/images/get_started48.png",
-        "128": "/images/get_started128.png"
+        "16": "/images/rofi16.png",
+        "32": "/images/rofi32.png",
+        "48": "/images/rofi48.png",
+        "128": "/images/rofi128.png"
     },
     "options_page": "options.html"
 }

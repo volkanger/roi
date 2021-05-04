@@ -7,7 +7,7 @@
 
     <div class="containAll">
       <div class="title">
-        Return of Investment Calculator
+        Return on Investment Calculator
       </div>
       <div class="form">
         <div class="name">
@@ -15,42 +15,36 @@
         </div>
         <div class="field">
           <input type="number" id="askingPriceField" name="askingPrice" required size="6" class="askingPrice float-left" value="180000" >
-          <span class="show askingPriceText">n/a </span><img id="askingPriceEdit" src="edit-regular.svg" alt="edit">
+          <span class="show askingPriceText">$180,000 </span><img id="askingPriceEdit" src="edit-regular.svg" alt="edit">
         </div>
         <div class="name">
           HOA
         </div>
         <div class="field">
           <input type="number" id="hoaCostField" name="hoaCost" required size="6" class="hoaCost float-left" value="400" >
-          <span class="show hoaCostText">n/a </span><img id="hoaCostEdit" src="edit-regular.svg" alt="edit">
+          <span class="show hoaCostText">$400/mo </span><img id="hoaCostEdit" src="edit-regular.svg" alt="edit">
         </div>
         <div class="name">
           Property Taxes
         </div>
         <div class="field">
           <input type="number" id="propertyTaxesField" name="propertyTaxes" required class="propertyTaxes float-left" value="300">
-          <span class="show propertyTaxesText">n/a </span><img id="propertyTaxesEdit" src="edit-regular.svg" alt="edit">
+          <span class="show propertyTaxesText">$300/mo </span><img id="propertyTaxesEdit" src="edit-regular.svg" alt="edit">
         </div>
         <div class="name">      
           Rent Zestimate 
         </div>
         <div class="field">
           <input type="number" id="rentZestimateField" name="rentZestimate" required size="10" class="rentZestimate float-left" value="1650">
-          <span class="show rentZestimateText">n/a </span><img id="rentZestimateEdit" src="edit-regular.svg" alt="edit">
+          <span class="show rentZestimateText">$1000/mo </span><img id="rentZestimateEdit" src="edit-regular.svg" alt="edit">
           </br>
         </div>
       </div>
       <div class="years">
-        <p class="years"> Calculated ROI: </p></br>
+        <p class="years"> Calculated ROI: <br/> (enter numbers as you like and hit Update)</p></br>
       </div>
     </div>   
  <div>
-
-
-    <!-- Asking price: $<input type="number" id="askingPrice" name="askingPrice" required size="10" class="askingPrice" value="123"></input></br>
-    HOA: $<input type="number" id="hoaCost" name="hoaCost" required size="10" class="hoaCost" value="123"></br>
-    Property Taxes: $<input type="number" id="propertyTaxes" name="propertyTaxes" required class="propertyTaxes" value="123"></br>
-    Rent Zestimate: $<input type="number" id="rentZestimate" name="rentZestimate" required size="10" class="rentZestimate" value="123"></br> -->
     
     <button id="calculateButton">Update</button> 
   </div>
