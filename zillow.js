@@ -43,12 +43,14 @@ if (typeof basla === 'undefined') {
                 var years = askingPrice / ((rentZestimate - hoaCost - propertyTaxes) * 12);
                 
                 if(rentZestimate > 0) {
+                    console.log("Appending the calculated value (zillow js)");
                     document.querySelector(".ds-bed-bath-living-area-container").append(" | ROI " + years.toFixed(2) + "yr");
                     // alert("Asking price: $" + askingPrice + "\nHOA: $" + hoaCost + "\nProperty Taxes: $" + propertyTaxes + "\nRent Zestimate: $" + rentZestimate + "\nCalculated ROI: " + years.toFixed(2) + " years.");
 
                     
                     chrome.runtime.sendMessage({name: "calculations", data: {years: years, rentZestimate: rentZestimate, propertyTaxes: propertyTaxes, hoaCost: hoaCost, askingPrice: askingPrice}}, (response) => {
-                        console.log("calculations sent");
+                        console.log("calculations sent (zillow js)");
+                        console.log(years);
                         // parseCoupons(response.data, domain);
                       });
                 

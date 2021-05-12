@@ -38,11 +38,12 @@ const openBit = async () => {
 openBit();
 
 function calculateROI() {
-  var allContent = document.documentElement.innerText
-  var askingPrice = document.querySelector("span > span > span").innerText.replace("$", "").replace(",", "");
+  var allContent = document.documentElement.innerText;
   var hoaCost;
 
-  if(allContent.search("HOA fees") > 0) {
+  if (document.URL.includes("zillow.com")) {
+    var askingPrice = document.querySelector("span > span > span").innerText.replace("$", "").replace(",", "");
+    if(allContent.search("HOA fees") > 0) {
       if(allContent.slice(allContent.search("HOA fees")+9, allContent.search("HOA fees")+19).includes("N/A")) {
       hoaCost = 0;    
       } else {
@@ -52,7 +53,7 @@ function calculateROI() {
       hoaCost = 0;
   }
 
-  if(allContent.search("Property taxes") > 0) {
+  if(allContent.search("Property taxes") > 0 || allContent.search("Property Taxes") > 0) {
   var propertyTaxes = allContent.slice(allContent.search("Property taxes")+15, allContent.search("Property taxes")+25).split("/")[0].replace("$","").replace(",","")
   } else {
       propertyTaxes = 0.0225 * askingPrice;
@@ -68,9 +69,61 @@ function calculateROI() {
   
   
   chrome.runtime.sendMessage({name: "calculations", data: {years: years, rentZestimate: rentZestimate, propertyTaxes: propertyTaxes, hoaCost: hoaCost, askingPrice: askingPrice}}, (response) => {
-    console.log("calculations sent");
+    console.log("calculations sent (popup js)");
 
-  });    
+  });
+
+  };
+
+
+
+
+
+  if (document.URL.includes("redfin.com")) {
+    
+    var askingPrice = document.querySelectorAll('[data-rf-test-id="abp-price"]').item(0).firstElementChild.innerText.replace("$", "").replace(",", "");
+    if(allContent.search("HOA Dues") > 0) {
+      if(allContent.slice(allContent.search("HOA Dues")+9, allContent.search("HOA Dues")+19).includes("N/A")) {
+      hoaCost = 0;    
+      } else {
+      var hoaCost = allContent.slice(allContent.search("HOA Dues")+9, allContent.search("HOA Dues")+19).split("/")[0].replace("$","").replace(",","")
+      };
+      console.log(hoaCost);
+  } else {
+      hoaCost = 0;
+  }
+
+  if(allContent.search("Property Taxes") > 0) {
+    console.log("CAPS T");
+    var propertyTaxes = allContent.slice(allContent.search("Property Taxes")+15, allContent.search("Property Taxes")+20).split("/")[0].replace("$","").replace(",","");
+    console.log(propertyTaxes);
+  } else if(allContent.search("Property taxes") > 0) {
+    console.log("lowercase t");
+      var propertyTaxes = allContent.slice(allContent.search("Property taxes")+15, allContent.search("Property taxes")+20).split("/")[0].replace("$","").replace(",","");
+      console.log(propertyTaxes);
+  } else {
+          propertyTaxes = 0.0225 * askingPrice;
+  };
+
+  if(allContent.search("Monthly Rent") > 0) {
+  var rentZestimate = allContent.slice(allContent.search("Monthly Rent")+14, allContent.search("Monthly Rent")+19).split("/")[0].replace("$","").replace(",","");
+  console.log(rentZestimate);
+  } else {
+    var rentZestimate = 1000;
+  };
+    
+  var years = askingPrice / ((rentZestimate - hoaCost - propertyTaxes) * 12);
+  
+  
+  chrome.runtime.sendMessage({name: "calculations", data: {years: years, rentZestimate: rentZestimate, propertyTaxes: propertyTaxes, hoaCost: hoaCost, askingPrice: askingPrice}}, (response) => {
+    console.log("calculations sent (popup)");
+    console.log(document.URL);
+
+  });
+  };
+  
+
+    
 };
 
 

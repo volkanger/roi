@@ -1,13 +1,23 @@
 try{
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.title){
-      if (changeInfo.title.includes("MLS #")) {
+      if (changeInfo.title.includes("MLS #") && changeInfo.title.includes("Zillow")) {
           chrome.scripting.executeScript({
             files: ['zillow.js'],
             target: {tabId: tab.id}
           });
+          console.log("run zillow, from bg)");
       }
-    }
+    };
+    if (changeInfo.title){
+      if (changeInfo.title.includes("MLS #") && changeInfo.title.includes("Redfin")) {
+        chrome.scripting.executeScript({
+          files: ['redfin.js'],
+          target: {tabId: tab.id}
+        });
+        console.log("run redfin, from bg)");
+      }
+    };
   });
 
 }catch(e){
