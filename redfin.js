@@ -30,9 +30,12 @@ if (typeof basla === 'undefined') {
                         propertyTaxes = 0.0225 * askingPrice;
                 };
 
-                if(allContent.search("Monthly Rent") > 0) {
+                if(allContent.search("Rental Estimate") > 0) {
+                    var rentZestimate = allContent.slice(allContent.search(" / mo") - 15, allContent.search(" / mo")).split("-")[0].replace("$","").replace(",","").replace(" ","");
+                    console.log("rental estimate = " + rentZestimate);
+                } else if(allContent.search("Monthly Rent") > 0) {
                 var rentZestimate = allContent.slice(allContent.search("Monthly Rent")+14, allContent.search("Monthly Rent")+19).split("/")[0].replace("$","").replace(",","");
-                console.log(rentZestimate);
+                console.log("montly rent = " + rentZestimate);
                 } else {
                     var rentZestimate = 1000;
                 };
@@ -51,7 +54,7 @@ if (typeof basla === 'undefined') {
                 if(rentZestimate > 0) {
                     console.log("rent estimate bigger than zero");
                     var clone = document.querySelector(".home-main-stats-variant").firstElementChild.cloneNode(true);
-                    document.querySelector(".home-main-stats-variant").appendChild(clone);
+                    //document.querySelector(".home-main-stats-variant").appendChild(clone);
                     // alert("Asking price: $" + askingPrice + "\nHOA: $" + hoaCost + "\nProperty Taxes: $" + propertyTaxes + "\nRent Zestimate: $" + rentZestimate + "\nCalculated ROI: " + years.toFixed(2) + " years.");
 
 
@@ -60,9 +63,7 @@ if (typeof basla === 'undefined') {
                     document.querySelector(".home-main-stats-variant").appendChild(clone); 
                     document.querySelector(".home-main-stats-variant").lastElementChild.firstElementChild.innerText = years.toFixed(2);
                     document.querySelector(".home-main-stats-variant").lastElementChild.lastElementChild.innerText = "ROI (years)";
-                
-                
-                }, 4000);
+                }, 3000);
                     
                     chrome.runtime.sendMessage({name: "calculations", data: {years: years, rentZestimate: rentZestimate, propertyTaxes: propertyTaxes, hoaCost: hoaCost, askingPrice: askingPrice}}, (response) => {
                         console.log("calculations sent (redfin)");
