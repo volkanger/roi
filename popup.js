@@ -41,6 +41,11 @@ function calculateROI() {
   var allContent = document.documentElement.innerText;
   var hoaCost;
 
+  chrome.storage.sync.get("rentEstimate", ({ rentEstimate }) => {
+    defaultRentEstimate = rentEstimate;
+    console.log("Default Rent Estimate from Options: -->  $" + defaultRentEstimate + " <--- (popup)");
+  });
+
   if (document.URL.includes("zillow.com")) {
     var askingPrice = document.querySelector("span > span > span").innerText.replace("$", "").replace(",", "");
     if(allContent.search("HOA fees") > 0) {
@@ -62,7 +67,7 @@ function calculateROI() {
   if(allContent.search("Rent Zestimate") > 0) {
   var rentZestimate = allContent.slice(allContent.search("Rent Zestimate")+16, allContent.search("Rent Zestimate")+25).split("/")[0].replace("$","").replace(",","")
   } else {
-    var rentZestimate = 1000;
+    var rentZestimate = defaultRentEstimate;
   };
     
   var years = askingPrice / ((rentZestimate - hoaCost - propertyTaxes) * 12);
@@ -122,7 +127,7 @@ function calculateROI() {
           var rentZestimate = allContent.slice(allContent.search("Monthly Rent")+14, allContent.search("Monthly Rent")+19).split("/")[0].replace("$","").replace(",","");
           console.log("montly rent = " + rentZestimate);
           } else {
-              var rentZestimate = 1000;
+              var rentZestimate = defaultRentEstimate;
           };
               
           var years = askingPrice / ((rentZestimate - hoaCost - propertyTaxes) * 12);

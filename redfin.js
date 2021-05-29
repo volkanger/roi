@@ -4,7 +4,6 @@ if (typeof basla === 'undefined') {
             if (document.querySelector(".home-main-stats-variant").innerText.includes("ROI")) {
             } else {
 
-
                 var allContent = document.documentElement.innerText
                 var askingPrice = document.querySelectorAll('[data-rf-test-id="abp-price"]').item(0).firstElementChild.innerText.replace("$", "").replace(",", "");
                     if(allContent.search("HOA Dues") > 0) {
@@ -19,7 +18,7 @@ if (typeof basla === 'undefined') {
                 }
 
                 if(allContent.search("Property Taxes") > 0) {
-                    console.log("CAPS T");
+                    console.log("CAPS T(redfin)");
                     var propertyTaxes = allContent.slice(allContent.search("Property Taxes")+15, allContent.search("Property Taxes")+20).split("/")[0].replace("$","").replace(",","");
                     console.log(propertyTaxes);
                 } else if(allContent.search("Property taxes") > 0) {
@@ -37,14 +36,18 @@ if (typeof basla === 'undefined') {
                 var rentZestimate = allContent.slice(allContent.search("Monthly Rent")+14, allContent.search("Monthly Rent")+19).split("/")[0].replace("$","").replace(",","");
                 console.log("montly rent = " + rentZestimate);
                 } else {
-                    var rentZestimate = 1000;
+                    chrome.storage.sync.get("rentEstimate", ({ rentEstimate }) => {
+                        var rentZestimate = rentEstimate;
+                        return rentZestimate
+                      });
+                    
                 };
                     
                 var years = askingPrice / ((rentZestimate - hoaCost - propertyTaxes) * 12);
                 
                 
                 chrome.runtime.sendMessage({name: "calculations", data: {years: years, rentZestimate: rentZestimate, propertyTaxes: propertyTaxes, hoaCost: hoaCost, askingPrice: askingPrice}}, (response) => {
-                    console.log("calculations sent (popup)");
+                    console.log("calculations sent (redfin)");
                     console.log(document.URL);
 
                 });
@@ -52,7 +55,7 @@ if (typeof basla === 'undefined') {
                 var years = askingPrice / ((rentZestimate - hoaCost - propertyTaxes) * 12);
                 
                 if(rentZestimate > 0) {
-                    console.log("rent estimate bigger than zero");
+                    console.log("rent estimate bigger than zero (redfin)");
                     var clone = document.querySelector(".home-main-stats-variant").firstElementChild.cloneNode(true);
                     //document.querySelector(".home-main-stats-variant").appendChild(clone);
                     // alert("Asking price: $" + askingPrice + "\nHOA: $" + hoaCost + "\nProperty Taxes: $" + propertyTaxes + "\nRent Zestimate: $" + rentZestimate + "\nCalculated ROI: " + years.toFixed(2) + " years.");
