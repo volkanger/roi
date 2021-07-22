@@ -1,37 +1,37 @@
 {
-    "name": "RoI Calculator for Real Estate",
-    "description": "Calculates how many years it'll take for the property to pay off.",
-    "version": "0.0.4",
-    "content_scripts": [
-        {
-            "matches": ["*://www.zillow.com/*"],
-            "run_at": "document_idle",
-            "js": ["zillow.js"]
-        },
-        {
-            "matches": ["*://www.redfin.com/*"],
-            "run_at": "document_idle",
-            "js": ["redfin.js"]
-        }
-    ],
-    "host_permissions": ["<all_urls>"],
-    "manifest_version": 3,
-    "background": {
-        "service_worker": "background.js"
-      },
-    "permissions": ["storage", "activeTab", "scripting", "tabs"],
-    "action": {
-        "default_popup": "popup.html",
-        "default_icon": {
-            "32": "/images/roi-calculator-for-real-estate-logo-32.png",
-            "48": "/images/roi-calculator-for-real-estate-logo-48.png",
-            "128": "/images/roi-calculator-for-real-estate-logo-128.png"
-        }
+  "name": "RoI Calculator for Real Estate",
+  "description": "Calculates how many years it'll take for the property to pay off.",
+  "version": "0.0.4.1",
+  "content_scripts": [
+    {
+      "matches": ["*://www.zillow.com/*"],
+      "run_at": "document_idle",
+      "js": ["zillow.js"]
     },
-    "icons": {
-        "32": "/images/roi-calculator-for-real-estate-logo-32.png",
-        "48": "/images/roi-calculator-for-real-estate-logo-48.png",
-        "128": "/images/roi-calculator-for-real-estate-logo-128.png"
-    },
-    "options_page": "options.html"
+    {
+      "matches": ["*://www.redfin.com/*"],
+      "run_at": "document_idle",
+      "js": ["redfin.js"]
+    }
+  ],
+  "host_permissions": ["<all_urls>"],
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "32": "/images/roi-calculator-for-real-estate-logo-32.png",
+      "48": "/images/roi-calculator-for-real-estate-logo-48.png",
+      "128": "/images/roi-calculator-for-real-estate-logo-128.png"
+    }
+  },
+  "icons": {
+    "32": "/images/roi-calculator-for-real-estate-logo-32.png",
+    "48": "/images/roi-calculator-for-real-estate-logo-48.png",
+    "128": "/images/roi-calculator-for-real-estate-logo-128.png"
+  },
+  "options_page": "options.html"
 }
