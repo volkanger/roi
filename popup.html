@@ -3,51 +3,33 @@
   <head>
     <link rel="stylesheet" href="popup.css">
   </head>
-  <body>
-
-    <div class="containAll">
-      <div class="title">
-        Return on Investment Calculator
-      </div>
-      <div class="form">
-        <div class="name">
-          Asking price
-        </div>
-        <div class="field">
-          <input type="number" id="askingPriceField" name="askingPrice" required size="6" class="askingPrice float-left" value="180000" >
-          <span class="show askingPriceText">$180,000 </span><img id="askingPriceEdit" src="edit-regular.svg" alt="edit">
-        </div>
-        <div class="name">
-          HOA
-        </div>
-        <div class="field">
-          <input type="number" id="hoaCostField" name="hoaCost" required size="6" class="hoaCost float-left" value="400" >
-          <span class="show hoaCostText">$400/mo </span><img id="hoaCostEdit" src="edit-regular.svg" alt="edit">
-        </div>
-        <div class="name">
-          Property Taxes
-        </div>
-        <div class="field">
-          <input type="number" id="propertyTaxesField" name="propertyTaxes" required class="propertyTaxes float-left" value="300">
-          <span class="show propertyTaxesText">$300/mo </span><img id="propertyTaxesEdit" src="edit-regular.svg" alt="edit">
-        </div>
-        <div class="name">      
-          Estimated Rent
-        </div>
-        <div class="field">
-          <input type="number" id="rentZestimateField" name="rentZestimate" required size="10" class="rentZestimate float-left" value="1200">
-          <span class="show rentZestimateText">$1200/mo </span><img id="rentZestimateEdit" src="edit-regular.svg" alt="edit">
-          </br>
-        </div>
-      </div>
-      <div class="years">
-        <p class="years"> Calculated ROI: <br/> (enter numbers as you like and hit Update)</p></br>
-      </div>
-    </div>   
- <div>
-    
-    <button id="calculateButton">Update</button> 
+<body>
+  <div class="row">
+    <p>Return on Investment Calculator</p>
   </div>
-    <script src="popup.js"></script>
-  </body>
+
+  <div class="row">
+    <span>
+      <input class="balloon askingPrice" id="askingPriceField" type="text" placeholder="Enter For Sale price" value="$180,000" /><label for="askingPriceField">Price</label>
+    </span>
+    <span>
+      <input class="balloon hoaCost" id="hoaCostField" type="text" placeholder="Enter monthly HOA cost" value="$400/mo"/><label for="hoaCostField">HOA</label>
+    </span>
+    <span>
+      <input class="balloon propertyTaxes" id="propertyTaxesField" type="text" placeholder="Enter monthly tax amount" value="$300/mo"/><label for="propertyTaxesField">Tax</label>
+    </span>
+    <span>
+      <input class="balloon rentZestimate" id="rentZestimateField" type="text" placeholder="Enter expected rent income" value="$1200/mo" /><label for="rentZestimateField">Rent</label>
+    </span>
+    <button id="calculateButton">Calculate</button> 
+
+    <div class="years">
+      <p class="years"> Calculated ROI: <br/> (enter numbers as you like and hit Update)</p></br>
+    </div>
+  </div>
+
+  
+  <script src="popup.js"></script>
+</body>
 </html>
+

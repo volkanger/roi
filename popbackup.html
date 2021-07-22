@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+
+    <div class="containAll">
+      <div class="title">
+        Return on Investment Calculator
+      </div>
+      <div class="form">
+        <div class="name">
+          Asking price
+        </div>
+        <div class="field">
+          <input type="number" id="askingPriceField" name="askingPrice" required size="6" class="askingPrice float-left" value="180000" >
+          <span class="show askingPriceText">$180,000 </span><img id="askingPriceEdit" src="edit-regular.svg" alt="edit">
+        </div>
+        <div class="name">
+          HOA
+        </div>
+        <div class="field">
+          <input type="number" id="hoaCostField" name="hoaCost" required size="6" class="hoaCost float-left" value="400" >
+          <span class="show hoaCostText">$400/mo </span><img id="hoaCostEdit" src="edit-regular.svg" alt="edit">
+        </div>
+        <div class="name">
+          Property Taxes
+        </div>
+        <div class="field">
+          <input type="number" id="propertyTaxesField" name="propertyTaxes" required class="propertyTaxes float-left" value="300">
+          <span class="show propertyTaxesText">$300/mo </span><img id="propertyTaxesEdit" src="edit-regular.svg" alt="edit">
+        </div>
+        <div class="name">      
+          Estimated Rent
+        </div>
+        <div class="field">
+          <input type="number" id="rentZestimateField" name="rentZestimate" required size="10" class="rentZestimate float-left" value="1200">
+          <span class="show rentZestimateText">$1200/mo </span><img id="rentZestimateEdit" src="edit-regular.svg" alt="edit">
+          </br>
+        </div>
+      </div>
+      <div class="years">
+        <p class="years"> Calculated ROI: <br/> (enter numbers as you like and hit Update)</p></br>
+      </div>
+    </div>   
+ <div>
+    
+    <button id="calculateButton">Update</button> 
+  </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -198,7 +198,7 @@ function calculateROI() {
 
 
 
-// When the Asking Price Edit is clicked, 
+/* When the Asking Price Edit is clicked, 
 askingPriceEdit.addEventListener("click", async () => {
   document.querySelector(".askingPriceText").style.display = "none";
   document.querySelector("#askingPriceField").style.display = "block";
@@ -274,6 +274,8 @@ propertyTaxesEdit.addEventListener("click", async () => {
       document.querySelector(".rentZestimateText").innerText = formatter.format(document.querySelector("#rentZestimateField").value);
     });
     });
+
+    */
 
 
 
