@@ -58,7 +58,7 @@ if (typeof basla === 'undefined') {
                 
                 
                 dataLoad = {years: years, rentZestimate: rentZestimate, propertyTaxes: propertyTaxes, hoaCost: hoaCost, askingPrice: askingPrice};
-                    chrome.storage.local.set({key: dataLoad}, function() {
+                    chrome.storage.sync.set({key: dataLoad}, function() {
                         console.log('Value of rent zest is set to ' + dataLoad.rentZestimate);
                       });
             }   

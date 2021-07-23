@@ -85,7 +85,7 @@ chrome.storage.sync.get("color", ({ color }) => {
 });
 
 function calculateROI() {
-  chrome.storage.local.get(['key'], function(result) {
+  chrome.storage.sync.get(['key'], function(result) {
     propertyTaxes = result.key.propertyTaxes
     askingPrice = result.key.askingPrice;
   console.log("here " + result.key.hoaCost);
@@ -102,9 +102,6 @@ function calculateROI() {
     }
     document.querySelector(".propertyTaxes").value = formatter.format(propertyTaxes.replace(/\D/g, "")) + "/mo";
     document.querySelector(".rentZestimate").value = formatter.format(rentZestimate.replace(/\D/g, "")) + "/mo";
-    
-    
-    
     
   });
   
