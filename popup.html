@@ -1,35 +1,60 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="popup.css" />
   </head>
-<body>
-  <div class="row">
-    <p>Return on Investment Calculator</p>
-  </div>
-
-  <div class="row">
-    <span>
-      <input class="balloon askingPrice" id="askingPriceField" type="text" placeholder="Enter For Sale price" value="$180,000" /><label for="askingPriceField">Price</label>
-    </span>
-    <span>
-      <input class="balloon hoaCost" id="hoaCostField" type="text" placeholder="Enter monthly HOA cost" value="$400/mo"/><label for="hoaCostField">HOA</label>
-    </span>
-    <span>
-      <input class="balloon propertyTaxes" id="propertyTaxesField" type="text" placeholder="Enter monthly tax amount" value="$300/mo"/><label for="propertyTaxesField">Tax</label>
-    </span>
-    <span>
-      <input class="balloon rentZestimate" id="rentZestimateField" type="text" placeholder="Enter expected rent income" value="$1200/mo" /><label for="rentZestimateField">Rent</label>
-    </span>
-    <button id="calculateButton">Calculate</button> 
-
-    <div class="years">
-      <p class="years"> Calculated ROI: <br/> (enter numbers as you like and hit Update)</p></br>
+  <body>
+    <div class="row">
+      <p style="font-size: 20px;">Return on Investment Calculator</p>
     </div>
-  </div>
 
-  
-  <script src="popup.js"></script>
-</body>
+    <div class="row">
+      <span>
+        <input
+          class="balloon askingPrice"
+          onclick="this.select()"
+          id="askingPriceField"
+          type="text"
+          placeholder="Enter For Sale price"
+          value="$180,000"
+        /><label for="askingPriceField">Price</label>
+      </span>
+      <span>
+        <input
+          class="balloon hoaCost"
+          onclick="this.select()"
+          id="hoaCostField"
+          type="text"
+          placeholder="Enter monthly HOA cost"
+          value="$400/mo"
+        /><label for="hoaCostField">HOA</label>
+      </span>
+      <span>
+        <input
+          class="balloon propertyTaxes"
+          onclick="this.select()"
+          id="propertyTaxesField"
+          type="text"
+          placeholder="Enter monthly tax amount"
+          value="$300/mo"
+        /><label for="propertyTaxesField">Tax</label>
+      </span>
+      <span>
+        <input
+          class="balloon rentZestimate"
+          onclick="this.select()"
+          id="rentZestimateField"
+          type="text"
+          placeholder="Enter expected rent income"
+          value="$1200/mo"
+        /><label for="rentZestimateField">Rent</label>
+      </span>
+      <span>
+        <button id="calculateButton">Calculate</button>
+        <div class="years"></div>
+      </span>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
 </html>
-
