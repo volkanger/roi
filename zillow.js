@@ -20,20 +20,20 @@ if (typeof basla === 'undefined') {
                     if(allContent.slice(allContent.search("HOA fees")+9, allContent.search("HOA fees")+19).includes("N/A")) {
                     hoaCost = 0;    
                     } else {
-                    var hoaCost = allContent.slice(allContent.search("HOA fees")+9, allContent.search("HOA fees")+19).split("/")[0].replace("$","").replace(",","")
+                    var hoaCost = allContent.slice(allContent.search("HOA fees")+9, allContent.search("HOA fees")+19).split("/")[0].replace(/\D/g, "")
                     }
                 } else {
                     hoaCost = 0;
                 }
 
                 if(allContent.search("Property taxes") > 0) {
-                var propertyTaxes = allContent.slice(allContent.search("Property taxes")+15, allContent.search("Property taxes")+25).split("/")[0].replace("$","").replace(",","")
+                var propertyTaxes = allContent.slice(allContent.search("Property taxes")+15, allContent.search("Property taxes")+25).split("/")[0].replace(/\D/g, "")
                 } else {
                     propertyTaxes = 0.0225 * askingPrice;
                 }
 
                 if(allContent.search("Rent Zestimate") > 0) {
-                var rentZestimate = allContent.slice(allContent.search("Rent Zestimate")+16, allContent.search("Rent Zestimate")+25).split("/")[0].replace("$","").replace(",","")
+                var rentZestimate = allContent.slice(allContent.search("Rent Zestimate")+16, allContent.search("Rent Zestimate")+25).split("/")[0].replace(/\D/g, "")
                 }
 
 
@@ -43,18 +43,10 @@ if (typeof basla === 'undefined') {
                 var years = askingPrice / ((rentZestimate - hoaCost - propertyTaxes) * 12);
                 
                 if(rentZestimate > 0) {
+                    
                     console.log("Appending the calculated value (zillow js)");
                     document.querySelector(".ds-bed-bath-living-area-container").append(" | ROI " + years.toFixed(2) + "yr");
                     // alert("Asking price: $" + askingPrice + "\nHOA: $" + hoaCost + "\nProperty Taxes: $" + propertyTaxes + "\nRent Zestimate: $" + rentZestimate + "\nCalculated ROI: " + years.toFixed(2) + " years.");
-
-                    
-                    chrome.runtime.sendMessage({name: "calculations", data: {years: years, rentZestimate: rentZestimate, propertyTaxes: propertyTaxes, hoaCost: hoaCost, askingPrice: askingPrice}}, (response) => {
-                        console.log("calculations sent (zillow js)");
-                        console.log(years);
-                        // parseCoupons(response.data, domain);
-                      });
-                
-                    
                     
                     
                     // chrome.runtime.sendMessage(years.toFixed(2));
@@ -62,7 +54,13 @@ if (typeof basla === 'undefined') {
                 } else {
                     document.querySelector(".ds-bed-bath-living-area-container").append(" | ROI: N/A");
                     // alert("Data required for ROI calculations is missing on this page. \nWe're currently working on next version which will allow you to manually enter values. \nStay tuned.");
-                };    
+                }; 
+                
+                
+                dataLoad = {years: years, rentZestimate: rentZestimate, propertyTaxes: propertyTaxes, hoaCost: hoaCost, askingPrice: askingPrice};
+                    chrome.storage.local.set({key: dataLoad}, function() {
+                        console.log('Value of rent zest is set to ' + dataLoad.rentZestimate);
+                      });
             }   
         }
     }
