@@ -1,7 +1,7 @@
 {
   "name": "RoI Calculator for Real Estate",
   "description": "Calculates how many years it'll take for the property to pay off.",
-  "version": "0.0.4.2",
+  "version": "0.1",
   "content_scripts": [
     {
       "matches": ["*://www.zillow.com/*"],
