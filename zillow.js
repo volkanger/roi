@@ -52,6 +52,7 @@ if (typeof basla === 'undefined') {
                     // chrome.runtime.sendMessage(years.toFixed(2));
 
                 } else {
+                    rentZestimate =  0;
                     document.querySelector(".ds-bed-bath-living-area-container").append(" | ROI: N/A");
                     // alert("Data required for ROI calculations is missing on this page. \nWe're currently working on next version which will allow you to manually enter values. \nStay tuned.");
                 }; 

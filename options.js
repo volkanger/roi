@@ -1,3 +1,4 @@
+debugger;
 let page = document.getElementById("buttonDiv");
 let selectedClassName = "current";
 const presetButtonColors = ["#3aa757", "#e8453c", "#f9bb2d", "#4688f1"];
@@ -10,7 +11,6 @@ function handleButtonClick(event) {
     alert(rentEstimate + "from options.js");
   });
 
-  // Remove styling from the previously selected color
   rentEstimate = 2;
   chrome.storage.sync.set({ rentEstimate });
   var yeni =  chrome.storage.sync.get("rentEstimate", ({ rentEstimate }) => {
@@ -50,6 +50,13 @@ function setDefaultRentEstimate() {
   // alert("Your Rent Estimate is set as $" + valueOnInput);
   rentEstimate = valueOnInput;
   chrome.storage.sync.set({ rentEstimate });
+
+  dataLoad = {defaultRent: dataLoad.defaultRent};
+  chrome.storage.sync.set({key: dataLoad}, function() {
+  console.log('Value of defaut rent is set to ' + dataLoad.defaultRent);
+  });
+
+
 }
 
 const el = document.getElementById("buttonDiv");
