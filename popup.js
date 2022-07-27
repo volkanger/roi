@@ -1,17 +1,26 @@
+console.log("start")
+
+
+
+
 chrome.storage.sync.get("rentEstimate", ({ rentEstimate }) => {
-  
+  //taking the rent estimate from Options menu above.
+  console.log("rentestimate from options menu = " + rentEstimate)
   chrome.storage.sync.get(['key'], 
     function(result) {
+      console.log(result),
+      console.log("cnh8i")
       debugger;
   //define variables
   var dataLoad = {
-    askingPrice: 360000,
-    propertyTaxes: 1700,
-    hoaCost: 310,
-    rentZestimate: 2000,
-    years: 12,
+    askingPrice: 333333,
+    propertyTaxes: 1111,
+    hoaCost: 222,
+    rentEstimate: 4444,
+    years: 55,
     defaultRent: rentEstimate
   }
+  console.log("nakgn")
 
       // alert('Value currently is ' + result.key.askingPrice);
       if(result.key){ //if there's anything coming from zillow
@@ -24,17 +33,17 @@ chrome.storage.sync.get("rentEstimate", ({ rentEstimate }) => {
         if(result.key.hoaCost >= 0){ //checking if they're ALL here,  one  by one
           dataLoad.hoaCost = result.key.hoaCost
         } 
-        if(result.key.rentZestimate){ //checking if they're ALL here,  one  by one
-          dataLoad.rentZestimate = result.key.rentZestimate
+        if(result.key.rentEstimate){ //checking if they're ALL here,  one  by one
+          dataLoad.rentEstimate = result.key.rentEstimate
         } else {
-          dataLoad.rentZestimate = dataLoad.defaultRent
+          dataLoad.rentEstimate = dataLoad.defaultRent
         }
         dataLoad.years = result.key.years
       }
 
 
       // calculate if there's any missing data that'd compromise the dataLoad integrity
-      calculateROI(dataLoad.askingPrice,dataLoad.rentZestimate,dataLoad.hoaCost,dataLoad.propertyTaxes);
+      calculateROI(dataLoad.askingPrice,dataLoad.rentEstimate,dataLoad.hoaCost,dataLoad.propertyTaxes);
       writeInputs();
       let inputs = document.querySelectorAll("input");
   inputs.forEach(function (input) {
@@ -95,7 +104,7 @@ chrome.storage.sync.get("rentEstimate", ({ rentEstimate }) => {
           document.querySelector(".hoaCost").value = susle(dataLoad.hoaCost)
         }
         document.querySelector(".propertyTaxes").value = susle(dataLoad.propertyTaxes)
-        document.querySelector(".rentZestimate").value = susle(dataLoad.rentZestimate)
+        document.querySelector(".rentZestimate").value = susle(dataLoad.rentEstimate)
         if (dataLoad.years >= 0) {
           document.querySelector(
             ".years"
@@ -115,7 +124,7 @@ chrome.storage.sync.get("rentEstimate", ({ rentEstimate }) => {
     dataLoad.askingPrice = onlyNumbers(document.querySelector(".askingPrice").value)
     dataLoad.hoaCost = onlyNumbers(document.querySelector(".hoaCost").value)
     dataLoad.propertyTaxes = onlyNumbers(document.querySelector(".propertyTaxes").value)
-    dataLoad.rentZestimate = onlyNumbers(document.querySelector(".rentZestimate").value)
+    dataLoad.rentEstimate = onlyNumbers(document.querySelector(".rentZestimate").value)
   }
   // function updateROI() {
   //   askingPrice = document.querySelector(".askingPrice").value.replace(/\D/g, "");
@@ -152,7 +161,7 @@ chrome.storage.sync.get("rentEstimate", ({ rentEstimate }) => {
     readInputs();
     document.querySelector(".years").style.display = "block";
     document.getElementById("calculateButton").style.display = "none";
-    dataLoad.years = calculateROI(dataLoad.askingPrice,dataLoad.rentZestimate,dataLoad.hoaCost,dataLoad.propertyTaxes);
+    dataLoad.years = calculateROI(dataLoad.askingPrice,dataLoad.rentEstimate,dataLoad.hoaCost,dataLoad.propertyTaxes);
     writeInputs();
   }
 
@@ -161,13 +170,14 @@ chrome.storage.sync.get("rentEstimate", ({ rentEstimate }) => {
 
 
   //Calculate: Yeni degerlerle hesapla
-  function calculateROI(askingPrice, rentZestimate, hoaCost, propertyTaxes) {
+  function calculateROI(askingPrice, rentEstimate, hoaCost, propertyTaxes) {
 
-    dataLoad.years = (askingPrice / ((rentZestimate - hoaCost - propertyTaxes) * 12)).toFixed(2);
+    dataLoad.years = (askingPrice / ((rentEstimate - hoaCost - propertyTaxes) * 12)).toFixed(2);
 
-    dataLoad = {years: dataLoad.years, rentZestimate: dataLoad.rentZestimate, propertyTaxes: dataLoad.propertyTaxes, hoaCost: dataLoad.hoaCost, askingPrice: dataLoad.askingPrice};
+    dataLoad = {years: dataLoad.years, rentEstimate: dataLoad.rentEstimate, propertyTaxes: dataLoad.propertyTaxes, hoaCost: dataLoad.hoaCost, askingPrice: dataLoad.askingPrice};
     chrome.storage.sync.set({key: dataLoad}, function() {
-    console.log('Value of rent zest is set to ' + dataLoad.rentZestimate);
+    console.log('Value of rent zest is set to ' + dataLoad.rentEstimate);
+    console.log('asking:' + askingPrice + ' zestimate:' + rentEstimate + ' hoa:' + hoaCost + ' taxes:' + propertyTaxes)
     });
 
 
