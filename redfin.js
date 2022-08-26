@@ -64,11 +64,45 @@ function updateUI(rentEstimate, askingPrice, hoaCost, propertyTaxes, years) {
         var clone = document.querySelector(".home-main-stats-variant").lastElementChild.cloneNode(true);
         //document.querySelector(".home-main-stats-variant").appendChild(clone);
         // alert("Asking price: $" + askingPrice + "\nHOA: $" + hoaCost + "\nProperty Taxes: $" + propertyTaxes + "\nRent Zestimate: $" + rentZestimate + "\nCalculated ROI: " + years.toFixed(2) + " years.");
+    
+
+
+  function susle(e){
+      const formatter = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 0
+      });
+      
+      e = formatter.format(e) + "/mo"
+      return e;
+      };
+
+    let newBox = document.createElement('div')
+    newBox.className = "stat-block baths-section"
+    newBox.innerHTML = `
+        <div class="statsValue">${years.toFixed(2)}</div><span class="statsLabel font-size-small"><div class="DefinitionFlyout definition-flyout-container react inline-block bath-flyout"><span id="yearsUnderline" class="DefinitionFlyoutLink inline-block underline clickable" tabindex="0">Years</span><div id="yearsBubble" class="Flyout standard v83 position-below alignment-center standard" tabindex="1" role="dialog"><div class="flyout" style="top: 22.08px; left: -5.33333px;"><div class="container"><div class="DefinitionFlyout react v83"><div><span>${susle(rentEstimate)}</span></div></div></div></div><div class="arrow" style="left: 7px; top: 10.08px;"></div></div></div></span></div>
+    `
+    
+    
+    function displayDate() {
+      let nasil = document.getElementById("yearsBubble").style.display
+      if (nasil == "block") {
+        document.getElementById("yearsBubble").style.display = "none"
+      } else if (nasil == "none") {
+        document.getElementById("yearsBubble").style.display = "block"  
+      }
+      
+    }
+
+
 
     setTimeout(() => {  
-        document.querySelector(".home-main-stats-variant").appendChild(clone); 
-        document.querySelector(".home-main-stats-variant").lastElementChild.firstElementChild.innerText = years.toFixed(2);
-        document.querySelector(".home-main-stats-variant").lastElementChild.lastElementChild.innerText = "years";
+        document.querySelector(".home-main-stats-variant").appendChild(newBox); 
+        document.getElementById("yearsUnderline").addEventListener("click", displayDate);
+        document.getElementById("yearsBubble").style.display = "none"
+        // document.querySelector(".home-main-stats-variant").lastElementChild.firstElementChild.innerText = years.toFixed(2);
+        // document.querySelector(".home-main-stats-variant").lastElementChild.lastElementChild.innerText = "years";
     }, 3200);
 
     saveToChromeDB(rentEstimate, askingPrice, hoaCost, propertyTaxes, years.toFixed(2))
