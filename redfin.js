@@ -85,21 +85,23 @@ function updateUI(rentEstimate, askingPrice, hoaCost, propertyTaxes, years) {
     `
     
     
-    function displayDate() {
+    function showBubble() {
       let nasil = document.getElementById("yearsBubble").style.display
-      if (nasil == "block") {
-        document.getElementById("yearsBubble").style.display = "none"
-      } else if (nasil == "none") {
-        document.getElementById("yearsBubble").style.display = "block"  
-      }
-      
+      document.getElementById("yearsBubble").style.display = "block"  
+
+    }
+
+    function hideBubble() {
+      let nasil = document.getElementById("yearsBubble").style.display
+      document.getElementById("yearsBubble").style.display = "none"
     }
 
 
 
     setTimeout(() => {  
         document.querySelector(".home-main-stats-variant").appendChild(newBox); 
-        document.getElementById("yearsUnderline").addEventListener("click", displayDate);
+        document.getElementById("yearsUnderline").addEventListener("mouseover", showBubble);
+        document.getElementById("yearsUnderline").addEventListener("mouseout", hideBubble);
         document.getElementById("yearsBubble").style.display = "none"
         // document.querySelector(".home-main-stats-variant").lastElementChild.firstElementChild.innerText = years.toFixed(2);
         // document.querySelector(".home-main-stats-variant").lastElementChild.lastElementChild.innerText = "years";
